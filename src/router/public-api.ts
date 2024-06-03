@@ -5,3 +5,6 @@ export const publicApiRouter = express.Router();
 
 publicApiRouter.post("/register", UsersController.register);
 publicApiRouter.post("/login", UsersController.login);
+
+//list members
+publicApiRouter.get("/members", UsersController.listMembers);

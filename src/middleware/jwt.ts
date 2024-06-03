@@ -3,7 +3,7 @@ import { config } from "../config/config";
 
 export const createToken = (payload: any) => {
   return {
-    id: payload.id,
+    id: payload.member_id,
     email: payload.email,
   };
 };

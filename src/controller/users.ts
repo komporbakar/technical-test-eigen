@@ -31,8 +31,15 @@ export class UsersController {
       next(error);
     }
   }
-  async get() {}
-  async post() {}
-  async put() {}
-  async delete() {}
+  static async listMembers(req: Request, res: Response, next: NextFunction) {
+    try {
+      const response = await UserService.listMembers();
+      return res.status(StatusCodes.OK).json({
+        error: false,
+        data: response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

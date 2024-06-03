@@ -37,6 +37,7 @@ CREATE TABLE borrows(
     CONSTRAINT fk_user
         FOREIGN KEY (member_id)
             REFERENCES members(member_id),
+                ON DELETE CASCADE
     CONSTRAINT fk_book
         FOREIGN KEY (book_id)
             REFERENCES books(book_id)

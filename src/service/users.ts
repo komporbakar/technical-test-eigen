@@ -16,19 +16,17 @@ export class UserService {
       "SELECT COUNT(email) FROM members WHERE email = $1",
       [registerRequest.email]
     );
-    console.log(checkUser[0].count);
     if (checkUser[0].count > 0) {
       throw new ResponseError(400, "User already exist");
     }
 
     const bcryptPassword = await bcrypt.hash(registerRequest.password, 10);
-    console.log(bcryptPassword);
+
     const createUser = await db.query(
       "INSERT INTO members (email, password, name) VALUES ($1, $2, $3) RETURNING *",
       [registerRequest.email, bcryptPassword, registerRequest.name]
     );
-    console.log(createUser);
-    return createUser;
+    return createUser[0];
   }
 
   static async login(request: LoginRequest) {
@@ -37,11 +35,13 @@ export class UserService {
     const checkUser = await db.query("SELECT * FROM members WHERE email = $1", [
       loginRequest.email,
     ]);
-    console.log(checkUser[0], "asdas");
-    if (checkUser[0].length == 0) {
+    console.log(checkUser);
+
+    if (checkUser.length == 0) {
       throw new ResponseError(400, "Credential Not Match");
     }
 
+    // Check Password match or not match
     const checkPassword = await bcrypt.compare(
       loginRequest.password,
       checkUser[0].password
@@ -54,5 +54,12 @@ export class UserService {
     //create token
     const token = createJWT({ payload: createToken(checkUser[0]) });
     return token;
+  }
+
+  static async listMembers() {
+    const members = await db.query(
+      "SELECT m.name, m.email, COUNT(bb.member_id) FROM members m LEFT JOIN borrows bb ON m.member_id = bb.member_id WHERE bb.datetime_return IS NULL GROUP BY m.name, m.email"
+    );
+    return members;
   }
 }

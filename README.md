@@ -1,5 +1,22 @@
 # API Borrows Book
 
+## Specefication
+
+```
+ - Node Js
+ - Express Js
+ - Postgre SQL
+```
+
+## Installation
+
+```raw
+ - git clone https://github.com/komporbakar/technical-test-eigen.git
+ - cd technical-test-eigen
+ - npm install
+ - npm run dev
+```
+
 ## Endpoint
 
 ```raw

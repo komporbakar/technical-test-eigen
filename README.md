@@ -1,4 +1,25 @@
-DDL
+# API Borrows Book
+
+## Endpoint
+
+```raw
+    - Register
+    endpoint : '/api/v1/register',
+    - Login
+    endpoint : '/api/v1/login',
+    - Borrows Book
+    endpoint : '/api/v1/borrows',
+    - Return Book
+    endpoint : '/api/v1/return'
+    - List Book
+    endpoint : '/api/v1/book'
+    - List Members
+    endpoint : 'api/v1/members'
+    - Vies Documentation Swagger
+    endpoint: '/api-docs'
+```
+
+## DDL
 
 - Create Database
 
@@ -43,4 +64,16 @@ CREATE TABLE borrows(
             REFERENCES books(book_id)
 );
 
+```
+
+## Unit Test
+
+```raw
+    npm run test
+```
+
+OR
+
+```raw
+    tested manually with unit testing per file
 ```
